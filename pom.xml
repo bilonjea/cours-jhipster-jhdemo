@@ -16,7 +16,7 @@
         <tag>HEAD</tag>
     </scm>
     
-    
+
     <repositories>
         <!-- jhipster-needle-maven-repository -->
     </repositories>
@@ -27,13 +27,19 @@
 
     <distributionManagement>
         <snapshotRepository>
-            <id>snapshots</id>
-            <url>http://artifactory:8081/artifactory/libs-snapshot</url>
-        </snapshotRepository>
+        	<!-- libs-snapshot -->
+        	<id>snapshots</id>
+        	<name>a0fgx3oyfdjnr-artifactory-primary-0-snapshots</name>
+        	<url>https://bilonjea.jfrog.io/artifactory/libs-snapshot</url>
+    	</snapshotRepository>
+
         <repository>
-            <id>releases</id>
-            <url>http://artifactory:8081/artifactory/libs-release</url>
-        </repository>
+        	<!-- libs-release -->
+        	<id>central</id>
+       		<name>a0fgx3oyfdjnr-artifactory-primary-0-releases</name>
+        	<url>https://bilonjea.jfrog.io/artifactory/libs-release</url>
+    	</repository>
+
     </distributionManagement>
     <!-- jhipster-needle-distribution-management -->
 
