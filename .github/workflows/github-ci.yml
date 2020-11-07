@@ -34,7 +34,9 @@ jobs:
                   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
               run: |
                   if [ -n $SONAR_TOKEN ]; then
+                       echo start push to sonar...
                       ./mvnw -ntp initialize sonar:sonar -Dsonar.organization=Jean Bilong -Dsonar.host.url=https://sonarcloud.io
+                      echo end push to sonar...
                   else
                       echo No SONAR_TOKEN, skipping...
                   fi
