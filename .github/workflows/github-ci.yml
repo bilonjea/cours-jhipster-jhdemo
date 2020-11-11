@@ -1,9 +1,4 @@
 name: Application CI
-defaults:
-  #JAVA_HOME: 1.8
-    run:
-      shell: bash
-      working-directory: scripts
 on: 
   push:
       branches:
@@ -21,6 +16,11 @@ on:
       tags:
         - v*
 jobs:
+    defaults:
+      #JAVA_HOME: 1.8
+      run:
+        shell: bash
+        #working-directory: scripts
     pipelinejob:
         name: jhdemo pipeline
         runs-on: ubuntu-latest #ubuntu 18.04 lts
