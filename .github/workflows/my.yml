@@ -59,9 +59,11 @@ jobs:
           with:
             java-version: 1.8
             architecture: x64
+        #- name: Install node.js packages
+        #  run: npm install
         - name: Example Checking os and node version
           run: |
-              node -version
+              node --version
               mvn -version
               lsb_release -a
     
