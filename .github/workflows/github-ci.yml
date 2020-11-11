@@ -1,5 +1,5 @@
 defaults:
-  JAVA_HOME: 1.8
+  #JAVA_HOME: 1.8
   run:
     shell: bash
     working-directory: scripts
