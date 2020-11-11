@@ -86,6 +86,7 @@ jobs:
 
     job5:
       name: Caching dependencies to improve run
+      runs-on: ubuntu-20.04
       needs: job4
       steps:
         - uses: actions/checkout@v2
