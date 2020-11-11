@@ -156,7 +156,7 @@ jobs:
       steps:
         - uses: actions/checkout@v2
         - name : Done release
-          if: github.event_name == 'release'  &&  cgithub.event.type='create' && github.ref == 'refs/heads/master'  #contains(github.event.types.*, 'create') 
+          if: github.event_name == 'release'  &&  github.event.type='create' && github.ref == 'refs/heads/master'  #contains(github.event.types.*, 'create') 
           env:
               HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
           run: echo "done  staff"
