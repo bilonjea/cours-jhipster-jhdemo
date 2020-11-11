@@ -4,7 +4,15 @@ on:
       branches:
         - develop
         - '**/feature.*/'
+        - master
 
 jobs:
     pipelinejob:
         name: my job pipeline
+
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+      - run: npm install -g bats
+      - run: bats -v
