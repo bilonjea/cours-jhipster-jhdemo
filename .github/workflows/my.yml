@@ -6,20 +6,46 @@ on:
         - '**/feature.*/'
         - master
 jobs:
-    pipelinejob:
-      name: my job pipeline
+    job1:
+      name: my job for produce package
       runs-on: ubuntu-latest
       steps:
-        - uses: actions/checkout@v2
+        - uses: actions/checkout@v2 # The checkout step downloads a copy of your repository on the runner.
         - name: set up node
-          uses: actions/setup-node@v1
+          uses: actions/setup-node@v1 # The setup-node install last node version.
         - name: Install bats
           run: npm install -g bats
         - name: execute a cmd
           run: bats -v
         - name: Set up JDK 1.8
-          uses: actions/setup-java@v1
+          uses: actions/setup-java@v1 # The setup-java step configures the Java 1.8 JDK
           with:
             java-version: 1.8
+            #architecture: x64
         - name: Build with Maven
           run: mvn -B package --file pom.xml
+
+    job2:
+      name: testing job on multiple os
+      #needs: job1
+      runs-on: ${{ matrix.os }}
+      strategy:
+          matrix:
+            os: [ubuntu-16.04, ubuntu-18.04]
+            node: [6, 8, 10]
+      steps:
+        - uses: actions/setup-node@v1
+          with:
+            node-version: ${{ matrix.node }}
+        - name: Set up JDK 1.8
+          uses: actions/setup-java@v1 
+          with:
+            java-version: 1.8
+            architecture: x64
+        - name: Test with Maven
+          run: mvn -B test --file pom.xml
+      
+
+
+
+    
