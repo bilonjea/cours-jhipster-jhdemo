@@ -154,9 +154,12 @@ jobs:
       name: Publish release to GitHub Packages Apache Maven
       runs-on: ubuntu-latest
       steps:
+        - uses: actions/checkout@v2
         - name : Done release
           if: github.event_name == 'release'  &&  cgithub.event.type='create' && github.ref == 'refs/heads/master'  #contains(github.event.types.*, 'create') 
-        - uses: actions/checkout@v2
+          env:
+              HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          run: echo "done  staff"
         - name: Set up JDK 1.8
           uses: actions/setup-java@v1
           with:
