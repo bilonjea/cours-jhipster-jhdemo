@@ -1,9 +1,30 @@
+defaults:
+  JAVA_HOME: 1.8
+  run:
+    shell: bash
+    working-directory: scripts
+
+
 name: Application CI
-on: [push, pull_request]
+on: 
+  push:
+      branches:
+        - develop
+        - '**/feature.*/'
+  pull_request:
+      branches:
+        - master
+  release:
+      # Only use the types keyword to narrow down the activity types that will trigger your workflow.
+      types: [published, created, edited]
+      branches:
+        - '**/release.*/'
+      tags:
+        - v*
 jobs:
-    pipeline:
+    pipelinejob:
         name: jhdemo pipeline
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-latest #ubuntu 18.04 lts
         if: "!contains(github.event.head_commit.message, '[ci skip]') && !contains(github.event.head_commit.message, '[skip ci]') && !contains(github.event.pull_request.title, '[skip ci]') && !contains(github.event.pull_request.title, '[ci skip]')"
         timeout-minutes: 40
         env:
@@ -32,6 +53,7 @@ jobs:
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+              #continue-on-error: true
               run: |
                   if [ -n $SONAR_TOKEN ]; then
                        echo start VERIFY to sonar...
@@ -56,3 +78,12 @@ jobs:
                   GIT_TAG=:${GITHUB_REF#refs/tags/}
                   DOCKER_TAG=${GIT_TAG#:refs/heads/master}
                   ./mvnw -ntp jib:build -Djib.to.image=jhipster/letizjhdemo${DOCKER_TAG} -Djib.to.auth.username="${{ secrets.DOCKER_USERNAME }}" -Djib.to.auth.password="${{ secrets.DOCKER_PASSWORD }}"
+realesejob:
+        name: release pipeline
+        needs: pipelinejob
+        runs-on: ubuntu-latest
+
+deploymentjob:
+        name: deploy pipeline
+        needs: [pipelinejob, realesejob]
+        runs-on: ubuntu-20.04
