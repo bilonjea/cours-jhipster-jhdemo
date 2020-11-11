@@ -17,7 +17,7 @@ on:
         - v*
 jobs:
     pipelinejob:
-        name: jhdemo pipeline
+        name: jhdemo_pipeline
         runs-on: ubuntu-latest #ubuntu 18.04 lts
         if: "!contains(github.event.head_commit.message, '[ci skip]') && !contains(github.event.head_commit.message, '[skip ci]') && !contains(github.event.pull_request.title, '[skip ci]') && !contains(github.event.pull_request.title, '[ci skip]')"
         timeout-minutes: 40
@@ -72,12 +72,17 @@ jobs:
                   GIT_TAG=:${GITHUB_REF#refs/tags/}
                   DOCKER_TAG=${GIT_TAG#:refs/heads/master}
                   ./mvnw -ntp jib:build -Djib.to.image=jhipster/letizjhdemo${DOCKER_TAG} -Djib.to.auth.username="${{ secrets.DOCKER_USERNAME }}" -Djib.to.auth.password="${{ secrets.DOCKER_PASSWORD }}"
-realesejob:
-        name: release pipeline
+
+    realesejob:
+        name: release_pipeline
         needs: pipelinejob
         runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
 
-deploymentjob:
-        name: deploy pipeline
+    deploymentjob:
+        name: deploy_pipeline
         needs: [pipelinejob, realesejob]
         runs-on: ubuntu-20.04
+        steps:
+            - uses: actions/checkout@v2
