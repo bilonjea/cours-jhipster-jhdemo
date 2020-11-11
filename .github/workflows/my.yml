@@ -4,3 +4,7 @@ on:
       branches:
         - develop
         - '**/feature.*/'
+
+jobs:
+    pipelinejob:
+        name: my job pipeline
