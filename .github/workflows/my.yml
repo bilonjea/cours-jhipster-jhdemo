@@ -57,7 +57,7 @@ jobs:
           with:
             node-version: 12.16.1
         - name: Run frontend test
-              run: npm run test
+          run: npm run test
         - name: Test with Maven
           run: mvn -B test --file pom.xml
         - name: Run the Maven verify phase
