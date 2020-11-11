@@ -1,1 +1,6 @@
 name: myworkflows
+on: 
+  push:
+      branches:
+        - develop
+        - '**/feature.*/'
