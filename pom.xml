@@ -24,23 +24,26 @@
     <pluginRepositories>
         <!-- jhipster-needle-maven-plugin-repository -->
     </pluginRepositories>
-
+    <!-- Define publishing repository Java packages -->
+    <!-- 
     <distributionManagement>
         <snapshotRepository>
-        	<!-- libs-snapshot -->
+        	< libs-snapshot >
         	<id>snapshots</id>
         	<name>a0fgx3oyfdjnr-artifactory-primary-0-snapshots</name>
         	<url>https://bilonjea.jfrog.io/artifactory/libs-snapshot</url>
     	</snapshotRepository>
 
         <repository>
-        	<!-- libs-release -->
+        	<libs-release>
         	<id>central</id>
        		<name>a0fgx3oyfdjnr-artifactory-primary-0-releases</name>
         	<url>https://bilonjea.jfrog.io/artifactory/libs-release</url>
     	</repository>
 
     </distributionManagement>
+      -->
+
     <!-- jhipster-needle-distribution-management -->
 
     <properties>
