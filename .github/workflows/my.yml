@@ -27,6 +27,7 @@ jobs:
         
         - name:  Publishing my Artifactory Repository by overriding settings.xml
           run : |
+            pwd 
             ls -l
             mv src/main/settings/settings.myartifactory.xml ~/.m2/settings.xml
         - name: Publish to my Artifactory Repository
