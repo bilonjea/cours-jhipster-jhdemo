@@ -21,11 +21,16 @@ jobs:
               with:
                   java-version: 11
             - name: Install node.js packages
-              run: npm install
+              run: |
+                java -version
+                npm install
             - name: Run backend test
               run: |
+                  java -version
                   chmod +x mvnw
                   ./mvnw -ntp clean verify -P-webpack
+              env:
+                NODE_VERSION: 12.16.1
             - name: Run frontend test
               run: |
                   java -version
@@ -44,6 +49,7 @@ jobs:
                   fi
             - name: Package application
               run: |
+                  java -version
                   echo "-------------------PREVIOUS SETTINGS.xml------------------------------"
                   cat ~/.m2/settings.xml
                   echo "-------------------PREVIOUS SETTINGS.xml------------------------------"
