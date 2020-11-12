@@ -28,11 +28,13 @@
 
     <distributionManagement>
         <!--libs-snapshot --> 
+        <!--
         <snapshotRepository>
         	<id>snapshots</id>
         	<name>a0fgx3oyfdjnr-artifactory-primary-0-snapshots</name>
         	<url>https://bilonjea.jfrog.io/artifactory/libs-snapshot</url>
     	</snapshotRepository>
+        --> 
         <!-- libs-release --> 
         <!--
         <repository>
