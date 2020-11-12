@@ -27,9 +27,7 @@ jobs:
         
         - name:  Publishing my Artifactory Repository by overriding settings.xml
           run : |
-            pwd 
-            mkdir ~/.m2
-            ls -l  src/main/settings/
+            echo move settings. xml into .m2
             mv src/main/settings/settings.myartifactory.xml ~/.m2/settings.xml
         - name: Publish to my Artifactory Repository
           run: mvn -B deploy
@@ -41,6 +39,20 @@ jobs:
           run: mvn -B deploy
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+    job10:
+      name: job10 Deploy to Herroku
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v2
+        - uses: akhileshns/heroku-deploy@v3.6.8 # This is the action
+          with:
+            heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+            heroku_app_name: ${{secrets.HEROKU_APP_NAME}} #Must be unique in Heroku
+            heroku_email: ${{secrets.HEROKU_EMAIL}}
+            #buildpack: ${{secrets.HEROKU_BUILD_PACK}}
+            #branch: "master"
 
 
             
