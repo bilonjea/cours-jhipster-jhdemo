@@ -27,7 +27,9 @@ jobs:
         
         - name:  Publishing my Artifactory Repository by overriding settings.xml
           run : |
-            echo 'move settings. xml into .m2'
+            echo move settings. xml into .m2
+            pwd 
+            ls -l  src/main/settings/
             mv src/main/settings/settings.myartifactory.xml ~/.m2/settings.xml
         - name: Publish to my Artifactory Repository
           run: mvn -B deploy
