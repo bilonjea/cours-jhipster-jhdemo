@@ -42,19 +42,7 @@ jobs:
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    job10:
-      name: job10 Deploy to Herroku
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v2
-        - uses: akhileshns/heroku-deploy@v3.6.8 # This is the action
-          with:
-            heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-            heroku_app_name: ${{secrets.HEROKU_APP_NAME}} #Must be unique in Heroku
-            heroku_email: ${{secrets.HEROKU_EMAIL}}
-            #buildpack: ${{secrets.HEROKU_BUILD_PACK}}
-            #branch: "master"
-      
+
             
 
     
