@@ -4,8 +4,8 @@
           xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
  <servers>
     <server>
-      <id>github</id>
-      <username>j.bilong@gmail.com</username>
+      <id>snapshots</id>
+      <username>bilonjea</username>
       <password>Lr5@$d4F4#A7wE8c#w</password>
     </server>
     <server>
