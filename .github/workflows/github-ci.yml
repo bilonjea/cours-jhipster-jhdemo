@@ -44,9 +44,13 @@ jobs:
                   fi
             - name: Package application
               run: |
-                  pwd
+                  echo "-------------------PREVIOUS SETTINGS.xml------------------------------"
                   cat ~/.m2/settings.xml
+                  echo "-------------------PREVIOUS SETTINGS.xml------------------------------"
                   mv src/main/settings/settings.myartifactory.xml ~/.m2/settings.xml
+                  echo "-------------------NEW SETTINGS.xml------------------------------"
+                  cat ~/.m2/settings.xml
+                  echo "-------------------NEW SETTINGS.xml------------------------------"
                   ./mvnw -ntp package deploy -Pprod -DskipTests
             - name: Deploy to Heroku
               if: github.event_name == 'push' && github.ref == 'refs/heads/master'
