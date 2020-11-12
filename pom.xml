@@ -50,7 +50,6 @@
             <url>https://maven.pkg.github.com/bilonjea/jhdemo</url>
         </repository>
     </distributionManagement>
-
     <!-- jhipster-needle-distribution-management -->
 
     <properties>
