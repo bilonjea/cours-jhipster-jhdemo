@@ -47,6 +47,14 @@ jobs:
                   else
                       echo No SONAR_TOKEN, skipping...
                   fi
+
+            - name: Set up Apache Maven Central
+                uses: actions/setup-java@v1
+                with: # running setup-java again overwrites the settings.xml
+                java-version: 11
+                server-id: ${{ secrets.JFROG_OSS_REPO_SNAPSHOTS }} # Value of the distributionManagement/repository/id field of the pom.xml
+                server-username: ${{ secrets.JFROG_OSS_REPO_USER }} # env variable for username in deploy
+                server-password: ${{ secrets.JFROG_OSS_REPO_PASS }} # env variable for token in deploy
             - name: Package application
               run: |
                   java -version
@@ -68,4 +76,4 @@ jobs:
               run: |
                   GIT_TAG=:${GITHUB_REF#refs/tags/}
                   DOCKER_TAG=${GIT_TAG#:refs/heads/master}
-                  ./mvnw -ntp jib:build -Djib.to.image=jhipster/jhdemobilonjea${DOCKER_TAG} -Djib.to.auth.username="${{ secrets.DOCKER_USERNAME }}" -Djib.to.auth.password="${{ secrets.DOCKER_PASSWORD }}"
+                  ./mvnw -ntp jib:build -Djib.to.image=${{ secrets.DOCKER_IMAGE_PREFIX }}${DOCKER_TAG} -Djib.to.auth.username="${{ secrets.DOCKER_USERNAME }}" -Djib.to.auth.password="${{ secrets.DOCKER_PASSWORD }}"
