@@ -28,7 +28,10 @@ jobs:
         - name:  Publishing my Artifactory Repository by overriding settings.xml
           run : |
             mkdir ~/.m2
+            mkdir ~/work/jhdemo/.m2
             mv src/main/settings/settings.myartifactory.xml ~/.m2/settings.xml
+            cp ~/.m2/settings.xml .
+            cp ~/.m2/settings.xml  ~/work/jhdemo/.m2/
         - name: Publish to my Artifactory Repository
           run: mvn -B deploy
           env:
