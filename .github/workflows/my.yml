@@ -27,11 +27,14 @@ jobs:
         
         - name:  Publishing my Artifactory Repository by overriding settings.xml
           run : |
-            pwd 
-            ls -l
+            mkdir ~/.m2
             mv src/main/settings/settings.myartifactory.xml ~/.m2/settings.xml
         - name: Publish to my Artifactory Repository
           run: mvn -B deploy
+          env:
+            MAVEN_USERNAME: ${{ secrets.JFROG_OSS_REPO_USER }}
+            MAVEN_PASSWORD: ${{ secrets.JFROG_OSS_REPO_PASS }}
+        
         - name: Set up Java for publishing to GitHub Packages
           uses: actions/setup-java@v1
           with:
