@@ -63,9 +63,10 @@ jobs:
             #  env:
             #      HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
             #  run: ./mvnw -ntp com.heroku.sdk:heroku-maven-plugin:2.0.5:deploy -DskipTests -Pprod -Dheroku.buildpacks=${{ secrets.HEROKU_BUILD_PACK }} -Dheroku.appName=${{ secrets.HEROKU_APP_NAME_TEST }}
+            - uses: actions/checkout@v2
+              if: github.event_name == 'push' && github.ref == 'refs/heads/master'            
             - uses: akhileshns/heroku-deploy@v3.6.8 # This is the action
               name: Deploy to Heroku by marketplace action
-              #if: github.event_name == 'push' && github.ref == 'refs/heads/master'
               with:
                 heroku_api_key: ${{secrets.HEROKU_API_KEY}}
                 heroku_app_name: ${{secrets.HEROKU_APP_NAME_TEST}} #Must be unique in Heroku
