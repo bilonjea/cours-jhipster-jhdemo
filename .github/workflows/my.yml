@@ -5,7 +5,7 @@ on:
         - develop
         - '**/feature.*/'
         - master
-        
+jobs:       
     job9:
       name: job9 Publish package to the Artifactory Repository and GitHub Packages
       #needs: job7
