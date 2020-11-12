@@ -5,7 +5,7 @@
 
     <groupId>com.ynov.jh.demo</groupId>
     <artifactId>jhdemo</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>Jhdemo</name>
 
@@ -28,13 +28,11 @@
 
     <distributionManagement>
         <!--libs-snapshot --> 
-        <!--
         <snapshotRepository>
         	<id>snapshots</id>
         	<name>a0fgx3oyfdjnr-artifactory-primary-0-snapshots</name>
         	<url>https://bilonjea.jfrog.io/artifactory/libs-snapshot</url>
     	</snapshotRepository>
-        --> 
         <!-- libs-release --> 
         <!--
         <repository>

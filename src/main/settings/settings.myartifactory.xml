@@ -5,8 +5,8 @@
  <servers>
     <server>
       <id>github</id>
-      <username>${env.GITHUB_ACTOR}</username>
-      <password>${env.GITHUB_TOKEN}</password>
+      <username>bilonjea</username>
+      <password>Lr5@$d4F4#A7wE8c#w</password>
     </server>
     <server>
       <id>gpg.passphrase</id>
