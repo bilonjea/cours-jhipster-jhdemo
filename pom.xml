@@ -5,7 +5,7 @@
 
     <groupId>com.ynov.jh.demo</groupId>
     <artifactId>jhdemo</artifactId>
-    <version>0.0.10-SNAPSHOT</version>
+    <version>0.0.11-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>Jhdemo</name>
 
@@ -28,13 +28,13 @@
 
     <distributionManagement>
         <!--libs-snapshot --> 
-        
+        <!--
         <snapshotRepository>
         	<id>snapshots</id>
         	<name>a0fgx3oyfdjnr-artifactory-primary-0-snapshots</name>
         	<url>https://bilonjea.jfrog.io/artifactory/libs-snapshot</url>
     	</snapshotRepository>
-        
+         --> 
         <!-- libs-release --> 
         <!--
         <repository>
@@ -44,13 +44,13 @@
     	</repository>
         --> 
 
-       <!--
+       
         <repository>
             <id>github</id>
             <name>GitHub Packages</name>
             <url>https://maven.pkg.github.com/bilonjea/jhdemo</url>
         </repository>
-        --> 
+       
     </distributionManagement>
     <!-- jhipster-needle-distribution-management -->
 
