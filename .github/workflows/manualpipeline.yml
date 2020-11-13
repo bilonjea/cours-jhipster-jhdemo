@@ -6,11 +6,11 @@ on:
       - '**/feature.*/'
 
 
-  release:
-       branches:
-          - test
-          - master
-       types: created
+  #release:
+       #branches:
+         # - test
+         # - master
+       #types: created
 
 
 jobs:
@@ -181,3 +181,16 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }} # GITHUB_TOKEN is the default env for the password
   
+job10:
+      name: Deploy to Herroku
+     #needs: pipeline
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v2
+        - uses: akhileshns/heroku-deploy@v3.6.8 # This is the action
+          with:
+            heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+            heroku_app_name: ${{secrets.HEROKU_APP_NAME}} #Must be unique in Heroku
+            heroku_email: ${{secrets.HEROKU_EMAIL}}
+            branch: "test"
+            buildpack: ${{secrets.HEROKU_BUILD_PACK}}
