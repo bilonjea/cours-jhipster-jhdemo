@@ -93,7 +93,7 @@ jobs:
     #https://github.com/marketplace/actions/action-maven-deploy
     jobPublish:      
       name: Job generating setting for mv deploy
-      needs: pipeline
+      #needs: pipeline
       runs-on: ubuntu-20.04
       steps:
         - name: Generate Settings	
