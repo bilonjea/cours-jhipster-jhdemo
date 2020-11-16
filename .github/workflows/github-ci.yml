@@ -80,6 +80,10 @@ jobs:
         runs-on: ubuntu-20.04
         name: Jobe Deploy into docker hub
         steps:
+            - name: install
+              run: |
+                  sudo apt update
+                  sudo apt install maven
             - uses: actions/checkout@v2
             - name: mvn package
               run:  mvn -ntp package -Pprod -DskipTests
