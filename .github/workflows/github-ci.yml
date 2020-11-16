@@ -82,7 +82,7 @@ jobs:
         steps:
             - uses: actions/checkout@v2
             - name: mvn package
-              run:  mvn -ntp package-Pprod -DskipTests
+              run:  mvn -ntp package -Pprod -DskipTests
             - name: Build and publish docker image
               if: github.event_name == 'push' && (github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/'))
               run: |
