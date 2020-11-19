@@ -95,6 +95,30 @@ jobs:
           run: |
             cat ~/.m2/settings.xml
             ./mvnw -ntp package deploy -Pprod -DskipTests
+        
+        
+    jobPublishGenerateSetting:      
+      name: Job generating setting directly
+      needs: pipeline
+      runs-on: ubuntu-20.04
+      steps:
+        - name: Generate Settings	
+        - name: Publish artefact
+          run: |
+            echo "<?xml version="1.0" encoding="UTF-8"?>
+                 <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+                 <servers>
+                    <server>
+                        <id>${{ secrets.JFROG_OSS_REPO_SNAPSHOTS }}</id>
+                        <username>${{ secrets.JFROG_OSS_REPO_USER }}</username>
+                        <password>${{ secrets.JFROG_OSS_REPO_PASS }}</password>
+                    </server>
+                </servers>
+                </settings>" > ~/.m2/settings.xml
+        
+            cat ~/.m2/settings.xml
+            mvn -ntp package deploy -Pprod -DskipTests
     
     #https://github.com/marketplace/actions/deploy-to-heroku  
     jobdeploy:
