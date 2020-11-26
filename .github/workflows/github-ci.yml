@@ -27,8 +27,8 @@ jobs:
             - name: Run backend test
               run: |
                   java -version
-                  chmod +x mvnw
-                  ./mvnw -ntp clean verify -P-webpack
+                  #chmod +x mvnw
+                  mvn -ntp clean verify -P-webpack
               env:
                 NODE_VERSION: 12.16.1
             - name: Run frontend test
@@ -46,7 +46,7 @@ jobs:
               run: |
                   java -version
                   if [ -n $SONAR_TOKEN ]; then
-                      ./mvnw -ntp initialize sonar:sonar -Dsonar.organization=${{ secrets.SONAR_ORGANISATION_KEY }} -Dsonar.host.url=${{ secrets.SONAR_URL }}
+                      mvn -ntp initialize sonar:sonar -Dsonar.organization=${{ secrets.SONAR_ORGANISATION_KEY }} -Dsonar.host.url=${{ secrets.SONAR_URL }}
                   else
                       echo No SONAR_TOKEN, skipping...
                   fi
@@ -60,27 +60,46 @@ jobs:
                   echo "-------------------NEW SETTINGS.xml------------------------------"
                   cat ~/.m2/settings.xml
                   echo "-------------------NEW SETTINGS.xml------------------------------"
-                  ./mvnw -ntp package deploy -Pprod -DskipTests
+                  mvn -ntp package deploy -Pprod -DskipTests
             
             #- name: Deploy to Heroku
             #  if: github.event_name == 'push' && github.ref == 'refs/heads/master'
             #  env:
             #      HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-            #  run: ./mvnw -ntp com.heroku.sdk:heroku-maven-plugin:2.0.5:deploy -DskipTests -Pprod -Dheroku.buildpacks=${{ secrets.HEROKU_BUILD_PACK }} -Dheroku.appName=${{ secrets.HEROKU_APP_NAME_TEST }}
+            #  run: mvn -ntp com.heroku.sdk:heroku-maven-plugin:2.0.5:deploy -DskipTests -Pprod -Dheroku.buildpacks=${{ secrets.HEROKU_BUILD_PACK }} -Dheroku.appName=${{ secrets.HEROKU_APP_NAME_TEST }}
             
             - name: Build and publish docker image
               if: github.event_name == 'push' && (github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/'))
               run: |
                   GIT_TAG=:${GITHUB_REF#refs/tags/}
                   DOCKER_TAG=${GIT_TAG#:refs/heads/master}
-                  ./mvnw -ntp jib:build -Djib.to.image=${{ secrets.DOCKER_IMAGE_PREFIX }}${DOCKER_TAG} -Djib.to.auth.username="${{ secrets.DOCKER_USERNAME }}" -Djib.to.auth.password="${{ secrets.DOCKER_PASSWORD }}"
+                  mvn -ntp jib:build -Djib.to.image=${{ secrets.DOCKER_IMAGE_PREFIX }}${DOCKER_TAG} -Djib.to.auth.username="${{ secrets.DOCKER_USERNAME }}" -Djib.to.auth.password="${{ secrets.DOCKER_PASSWORD }}"
   
   
-   #https://github.com/marketplace/actions/mvn-cmd
-   #https://github.com/marketplace/actions/action-maven-deploy
+    JobDeploy2DockerHub:
+        runs-on: ubuntu-20.04
+        name: Jobe Deploy into docker hub
+        steps:
+            - name: install
+              run: |
+                  sudo apt update
+                  sudo apt install maven
+            - uses: actions/checkout@v2
+            - name: mvn package
+              run:  mvn -ntp package -Pprod -DskipTests
+            - name: Build and publish docker image
+              if: github.event_name == 'push' && (github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/'))
+              run: |
+                  GIT_TAG=:${GITHUB_REF#refs/tags/}
+                  DOCKER_TAG=${GIT_TAG#:refs/heads/master}
+                  mvn -ntp jib:build -Djib.to.image=${{ secrets.DOCKER_IMAGE_PREFIX }}${DOCKER_TAG} -Djib.to.auth.username="${{ secrets.DOCKER_USERNAME }}" -Djib.to.auth.password="${{ secrets.DOCKER_PASSWORD }}"
+  
+  
+    #https://github.com/marketplace/actions/mvn-cmd
+    #https://github.com/marketplace/actions/action-maven-deploy
     jobPublish:      
       name: Job generating setting for mv deploy
-      needs: pipeline
+      #needs: pipeline
       runs-on: ubuntu-20.04
       steps:
         - name: Generate Settings	
@@ -90,12 +109,11 @@ jobs:
             maven-repo-server-id: snapshots
             maven-repo-server-username: ${{ secrets.JFROG_OSS_REPO_USER }}
             maven-repo-server-password: ${{ secrets.JFROG_OSS_REPO_PASS }}
-            #maven-args: "./mvnw -ntp package deploy -Pprod -DskipTests"
+            #maven-args: "./mvn -ntp package deploy -Pprod -DskipTests"
         - name: Publish artefact
           run: |
             cat ~/.m2/settings.xml
-            ./mvnw -ntp package deploy -Pprod -DskipTests
-        
+            ./mvn -ntp package deploy -Pprod -DskipTests     
         
     jobPublishGenerateSetting:      
       name: Job generating setting directly
