@@ -46,7 +46,7 @@ jobs:
               run: |
                   java -version
                   if [ -n $SONAR_TOKEN ]; then
-                      mvn -ntp initialize sonar:sonar -Dsonar.organization=${{ secrets.SONAR_ORGANISATION_KEY }} -Dsonar.host.url=${{ secrets.SONAR_URL }}
+                      mvn -ntp initialize sonar:sonar -Dsonar.login=${{ secrets.SONAR_TOKEN }} -Dsonar.organization=${{ secrets.SONAR_ORGANISATION_KEY }} -Dsonar.host.url=${{ secrets.SONAR_URL }}
                   else
                       echo No SONAR_TOKEN, skipping...
                   fi
