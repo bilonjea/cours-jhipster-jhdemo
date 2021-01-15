@@ -116,15 +116,14 @@ jobs:
           run: |
             cat ~/.m2/settings.xml
             mvn -ntp package deploy -Pprod -DskipTests
-    
-    #https://github.com/marketplace/actions/deploy-to-heroku  
+     
     jobdeploy:
-      name: Deploy to Herroku
+      name: Deploy to Heroku
       #needs: pipeline
       runs-on: ubuntu-20.04
       steps:
         - uses: actions/checkout@v2
-        - uses: akhileshns/heroku-deploy@v3.6.8 # This is the action
+        - uses: akhileshns/heroku-deploy@v3.6.8 #https://github.com/marketplace/actions/deploy-to-heroku 
           with:
             heroku_api_key: ${{secrets.HEROKU_API_KEY}}
             heroku_app_name: ${{secrets.HEROKU_APP_NAME}} #Must be unique in Heroku
