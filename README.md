@@ -4,7 +4,7 @@ This application was generated using JHipster 6.10.4, you can find documentation
 
 ## run in gitpod
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/bilonjea/jhdem)
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/bilonjea/jhdemo)
 
 ## Development
 
